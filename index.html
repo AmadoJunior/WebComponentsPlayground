@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+			rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="/base.css" />
+		<link rel="stylesheet" type="text/css" href="/layout.css" />
+		<link rel="stylesheet" type="text/css" href="/button.css" />
+		<script type="module" src="/build/test.esm.js"></script>
+		<script nomodule src="/build/test.js"></script>
+		<script type="module" src="web-components/loading-button.js"></script>
+		<script type="module" src="web-components/default-button.js"></script>
+		<script type="module" src="web-components/skeleton-box.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<skeleton-box>
+				<p slot="content">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+					aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+					aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+					occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</p>
+			</skeleton-box>
+			<loading-button>
+				<svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24">
+					<path fill="currentColor" d="m9.55 18l-5.7-5.7l1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4z" />
+				</svg>
+				<p slot="text">Loading Button</p>
+			</loading-button>
+			<default-button>
+				<svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24">
+					<path fill="currentColor" d="m9.55 18l-5.7-5.7l1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4z" />
+				</svg>
+				<p slot="text">Default Button</p>
+			</default-button>
+		</div>
+	</body>
+	<script>
+		function mockRequest() {
+			console.log("Mock Request")
+			
+			const contentBox = document.querySelector("skeleton-box")
+			contentBox.setAttribute("loading", "true")
+			this.setAttribute("loading", "true")
+
+			setTimeout(() => {
+				this.removeAttribute("loading")
+				contentBox.removeAttribute("loading")
+			}, 2000)
+		}
+		const loadingButtons = document.getElementsByTagName("loading-button");
+		for (const loadingButton of loadingButtons) {
+			loadingButton.onClick = mockRequest.bind(loadingButton);
+		}
+		const deaultButtons = document.getElementsByTagName("default-button");
+		for (const defaultButton of deaultButtons) {
+			defaultButton.onClick = () => {};
+		}
+	</script>
+</html>
